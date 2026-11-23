@@ -1,0 +1,135 @@
+/* Движение — наше, у компаньона его почти нет (у неё: ползунок этапа 0.12 s, переключатель
+   CRM/МИС 0.18 s, рамка карточки 0.15 s — они в её файлах и не меняются). Характер движения
+   — из двух видео владельца 31.10.2026: быстрый «перетекающий» бегунок, мягкое появление
+   окна. Цвета, размеры и вид — её; здесь только время и кривые. Подключается последним. */
+@layer components {
+  .crm {
+    --crm-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --crm-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --crm-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  /* бегунок меню (shell/nav-indicator.ts): её фон выбранного пункта и полоска слева */
+  .crm .sidebar nav.has-indicator {
+    position: relative;
+  }
+  .crm .sidebar nav .nav-indicator {
+    position: absolute;
+    border-radius: 5px;
+    background: var(--crm-ui-selected);
+    pointer-events: none;
+  }
+  .crm .sidebar nav .nav-indicator::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--crm-green);
+  }
+  /* вниз — нижний край впереди (0.2 s), верхний догоняет (0.34 s); вверх — наоборот */
+  .crm .sidebar nav .nav-indicator[data-dir='down'] {
+    transition:
+      bottom 0.2s var(--crm-ease-out),
+      top 0.34s var(--crm-ease-in-out);
+  }
+  .crm .sidebar nav .nav-indicator[data-dir='up'] {
+    transition:
+      top 0.2s var(--crm-ease-out),
+      bottom 0.34s var(--crm-ease-in-out);
+  }
+  /* фон и полоску выбранного пункта рисует бегунок; наведение и нажатие — как у неё */
+  .crm
+    .reference-shell
+    .sidebar
+    nav.has-indicator
+    .nav-btn:is(.active, [aria-current='page']):not(:hover):not(:active) {
+    background: transparent;
+  }
+  .crm
+    .reference-shell
+    .sidebar
+    nav.has-indicator
+    .nav-btn:is(.active, [aria-current='page'])::before {
+    content: none;
+  }
+
+  /* отклик кнопок: смена цвета при наведении — 0.15 s, нажатие — чуть утопить */
+  .crm :is(.button, .nav-btn, .expand) {
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.1s ease;
+  }
+  .crm .button:active:not(:disabled, .dashboard-drag-handle) {
+    transform: scale(0.97);
+  }
+
+  /* её окна (переписка, формы «+»): появляется 0.28 s (снизу на 8 px, из лёгкой размытости), уходит 0.18 s;
+     доску под ним видно сразу — действие не ждёт анимации */
+  @keyframes crm-dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.985);
+      filter: blur(2px);
+    }
+  }
+  @keyframes crm-dialog-out {
+    to {
+      opacity: 0;
+      transform: translateY(6px) scale(0.985);
+    }
+  }
+  @keyframes crm-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes crm-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+  .crm > dialog[data-state='open'] {
+    animation: crm-dialog-in 0.28s var(--crm-ease-out);
+  }
+  .crm > dialog[data-state='closed'] {
+    animation: crm-dialog-out 0.18s var(--crm-ease-in) forwards;
+  }
+  .crm-dialog-backdrop[data-state='open'] {
+    animation: crm-fade-in 0.24s var(--crm-ease-out);
+  }
+  .crm-dialog-backdrop[data-state='closed'] {
+    animation: crm-fade-out 0.18s var(--crm-ease-in) forwards;
+  }
+
+  /* раскрытая карточка («+»): содержимое проявляется 0.2 s */
+  @keyframes crm-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+  .crm .request-card .card-details {
+    animation: crm-reveal 0.2s var(--crm-ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .crm .sidebar nav .nav-indicator[data-dir],
+    .crm :is(.button, .nav-btn, .expand) {
+      transition: none;
+    }
+    .crm .button:active:not(:disabled, .dashboard-drag-handle) {
+      transform: none;
+    }
+    .crm > dialog[data-state],
+    .crm-dialog-backdrop[data-state],
+    .crm .request-card .card-details {
+      animation: none;
+    }
+  }
+}

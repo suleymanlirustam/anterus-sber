@@ -1,0 +1,67 @@
+/* Оформление CRM-прототипа компаньона — один в один (решение владельца 29.10.2026:
+   «шрифт, цвета и все остальное — как у неё в точности»). Только для окон сотрудников
+   (подключается из reception/reception.css), панель владельца не затрагивает.
+   Источник — пакет handoff 3.2.0 от 29.10.2026: токены — crm-ui-settings.json (копия
+   её config/ui-settings.json без изменений), --crm-muted — её src/styles.css, шкалы
+   текста — её ui-customization.js (variables()). Значения сверены с вычисленными
+   стилями работающего прототипа; совпадение проверяет crm-tokens.test.ts.
+   Своих значений сюда не добавлять: нужно другое — значит, у неё другое. */
+:root {
+  --crm-green: #255346;
+  --crm-terra: #a65036;
+  --crm-paper: #f5f2ec;
+  --crm-surface: #fffefb;
+  --crm-ink: #171a18;
+  --crm-line: #ccd2cd;
+  --crm-muted: #5c6862;
+  --crm-soft: #e7eceb;
+  --crm-soft-text: #465750;
+  --crm-warm: #f6eed9;
+  --crm-warm-text: #7a561d;
+  --crm-alert: #f4e2dc;
+  --crm-alert-text: #8f432d;
+  --crm-good: #e5f1eb;
+  --crm-good-text: #225e42;
+
+  /* выделение, наведение и нажатие пунктов меню (её ui-foundation.css) */
+  --crm-ui-selected: var(--crm-good);
+  --crm-ui-hover: color-mix(in srgb, var(--crm-green) 5%, var(--crm-surface));
+  --crm-ui-pressed: color-mix(
+    in srgb,
+    var(--crm-green) 20%,
+    var(--crm-surface)
+  );
+
+  /* этапы: фон / текст / рамка (её componentStyles.statuses) */
+  --crm-status-new-bg: #ffebb8;
+  --crm-status-new-text: #7a561d;
+  --crm-status-new-border: #f6eed9;
+  --crm-status-work-bg: #cef2e0;
+  --crm-status-work-text: #225e42;
+  --crm-status-work-border: #e5f1eb;
+  --crm-status-waiting-bg: #eecabf;
+  --crm-status-waiting-text: #8f432d;
+  --crm-status-waiting-border: #f4e2dc;
+  --crm-status-done-bg: #cacecd;
+  --crm-status-done-text: #465750;
+  --crm-status-done-border: #e7eceb;
+
+  /* размеры, px */
+  --crm-radius: 12px;
+  --crm-control: 8px;
+  --crm-pill-radius: 8px;
+  --crm-pill-height: 28px;
+  --crm-pill-width: 104px;
+  --crm-button-height: 40px;
+  --crm-compact-height: 34px;
+  --crm-grid-gap: 16px;
+
+  /* текст: подпись 12, основной 14, карточка 13, раздел 16, заголовок шапки 20, число плашки 32 */
+  --crm-type-caption: 12px;
+  --crm-type-body: 14px;
+  --crm-type-card: 13px;
+  --crm-type-section: 16px;
+  --crm-type-title: 20px;
+  --crm-type-metric: 32px;
+  --crm-heading-weight: 500;
+}

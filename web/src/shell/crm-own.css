@@ -1,0 +1,216 @@
+/* Наше, чего в прототипе компаньона нет, — в её цветах и размерах (crm-shell.css рядом —
+   только её правила, сгенерированные). Каждое правило здесь — сознательное отличие. */
+@layer components {
+  /* старые кнопки внутри её корня: её «.crm button { color: inherit }» сильнее «.rc-primary»,
+     и текст выходил тёмным на зелёном (проверка 04.11.2026, кнопка «Подключить» в «Каналах») */
+  .crm .rc-primary,
+  .crm .rc-terra {
+    color: var(--ac-white);
+  }
+
+  /* «Каналы» и ошибки в формах: экрана у неё нет — её панели, кнопки и цвета */
+  .crm .crm-channels {
+    display: grid;
+    gap: var(--crm-grid-gap);
+    max-width: 672px;
+  }
+  .crm .crm-channel {
+    display: grid;
+    justify-items: start;
+    gap: 12px;
+  }
+  .crm .crm-channel .note {
+    margin: 0px;
+  }
+  .crm .crm-channel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .crm .crm-channel-head h2 {
+    font-size: var(--crm-type-section);
+  }
+  .crm .crm-state {
+    border-radius: var(--crm-pill-radius);
+    padding: 3px 8px;
+    font-size: var(--crm-type-caption);
+  }
+  .crm .crm-state-good {
+    background: var(--crm-good);
+    color: var(--crm-good-text);
+  }
+  .crm .crm-state-warm {
+    background: var(--crm-warm);
+    color: var(--crm-warm-text);
+  }
+  .crm .crm-state-alert {
+    background: var(--crm-alert);
+    color: var(--crm-alert-text);
+  }
+  .crm .crm-state-soft {
+    background: var(--crm-soft);
+    color: var(--crm-soft-text);
+  }
+  .crm .crm-form-error {
+    color: var(--crm-alert-text);
+    font-size: var(--crm-type-caption);
+  }
+
+  /* окно выше экрана прокручивается: без этого кнопка формы уходила за край */
+  .crm dialog:not(.request-dialog) {
+    overflow-y: auto;
+  }
+
+  /* плашка под пунктом меню: «можно записать: 2», «не подключён» */
+  .crm .nav-text:has(.nav-alert) {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .crm .nav-alert {
+    border-radius: 999px;
+    background: var(--crm-terra);
+    padding: 0 8px;
+    color: var(--crm-white);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+  .crm .collapsed .nav-alert {
+    display: none;
+  }
+
+  /* пустой список — её правило из ui-foundation.css (на её дашборде не встретилось) */
+  .crm .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 128px;
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--crm-muted);
+    font-size: var(--crm-type-body);
+    line-height: 1.5;
+  }
+
+  /* доски: пустая колонка, колонка «сюда нельзя» при переносе, подробности карточки */
+  .crm .lane-empty {
+    padding: 16px 8px;
+    text-align: center;
+    font-size: var(--crm-type-caption);
+    color: var(--crm-muted);
+  }
+  .crm .lane.is-closed {
+    opacity: 0.45;
+  }
+  .crm .card-detail-body,
+  .crm .card-comments {
+    display: grid;
+    gap: 8px;
+    font-size: var(--crm-type-caption);
+    color: var(--crm-muted);
+  }
+  .crm .card-detail-body dd,
+  .crm .card-detail-body p {
+    color: var(--crm-ink);
+  }
+  .crm .card-comments h3 {
+    font-size: var(--crm-type-caption);
+    font-weight: 500;
+    color: var(--crm-ink);
+  }
+  .crm .card-comment-form {
+    display: flex;
+    gap: 6px;
+  }
+  .crm .card-comment-form input {
+    min-width: 0;
+    flex: 1;
+    min-height: 32px;
+    border: 1px solid var(--crm-line);
+    border-radius: 6px;
+    background: var(--crm-white);
+    padding: 5px 7px;
+  }
+  .crm .board-filtered {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* доска во всю высоту окна: между её .main и доской у нас стоит корень экрана — он
+     передаёт высоту дальше, как её .reception-request-layout */
+  .crm .crm-layout.board-workspace .main > div:not(.head) {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
+  }
+  .crm .crm-layout.board-workspace .reception-request-layout,
+  .crm .crm-layout.board-workspace .reception-queue {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 0%;
+    flex-direction: column;
+  }
+
+  /* подпись экрана — её правило из ui-system.css (на её дашборде не встречается, поэтому
+     не попало в снятые правила) */
+  .crm .screen-context {
+    font-size: var(--crm-type-caption);
+    color: var(--crm-muted);
+    margin: 8px 0 12px;
+  }
+  /* её тихие кнопки в шестерёнке («Сегодня», «Сбросить», стрелки колонок) — в рамке: так их
+     красит её ui-settings (тон secondary), а не styles.css; сняты с живого прототипа 29.10 */
+  .crm .page-settings-panel .button.quiet {
+    background-color: #fffefb;
+    color: #171a18;
+    border-color: #ccd2cd;
+  }
+  /* её окна (<dialog>) через Radix, shell/crm-dialog.tsx: Radix выносит окно из корня .crm,
+     корень — свой вокруг окна; её окно открыто showModal (по центру поверх всего), у Radix — обычный open,
+     поэтому место и подложка — свои, с её значениями (dialog::backdrop) */
+  .crm > dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    margin: auto;
+  }
+  .crm-dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(23, 59, 48, 0.5);
+    backdrop-filter: blur(2px);
+  }
+  /* метки «Запись» / «Вопрос врачу» в строке этапа — у неё меток нет */
+  .crm .request-context-labels {
+    display: inline-flex;
+    gap: 6px;
+  }
+  /* текст на зелёной кнопке — белый: так его красит её ui-settings (тон primary) прямо
+     в разметке, в CSS у неё var(--white) = #fffefb; снято с живого прототипа 31.10 */
+  .crm .button.primary,
+  .crm .crm-layout.reference-shell .head.reference-head .header-create {
+    color: #fff;
+  }
+  /* её формы «+»: иконка на кнопке отправки скрыта — правила из её styles.css (формы
+     создания при снятии правил с досок не открывались, сверка 31.10.2026) */
+  .crm [data-form='task-create'] > button[type='submit'] > .icon,
+  .crm [data-form='workflow-incoming'] > button.button > .icon,
+  .crm [data-form='incident-create'] > button > .icon {
+    display: none;
+  }
+  /* ответственный у неё — текстом; у нас его меняют списком — в ширину своей ячейки */
+  .crm .request-work-details select {
+    width: 100%;
+    min-width: 0;
+  }
+}

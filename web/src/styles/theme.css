@@ -1,0 +1,170 @@
+/* Палитра и шрифт окон сотрудников. Шрифт Onest — свои файлы (OFL), без обращения в интернет. */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/onest-cyrillic-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/onest-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --ac-ink: #171a18;
+  --ac-sage: #255346;
+  --ac-sage-deep: #1f463b;
+  --ac-sage-2: #d9e1dc;
+  --ac-paper: #f5f2ec;
+  --ac-white: #fffefb;
+  --ac-line: #c9d0cc;
+  --ac-muted: #66716c;
+  --ac-terra: #a65036;
+  --ac-terra-soft: #f4e2dc;
+  --ac-new: #e4a246;
+  --ac-new-soft: #f6eed9;
+  --ac-progress: #6b8582;
+  --ac-progress-soft: #e7eceb;
+  --ac-done: #3e9e72;
+  --ac-done-soft: #e5f1eb;
+
+  /* поле/кнопка 10, карточка 12 (rounded-md = radius - 2, rounded-xl = radius + 4) */
+  --radius: 12px;
+
+  --background: var(--ac-paper);
+  --foreground: var(--ac-ink);
+  --card: var(--ac-white);
+  --card-foreground: var(--ac-ink);
+  --popover: var(--ac-white);
+  --popover-foreground: var(--ac-ink);
+
+  --primary: var(--ac-sage);
+  --primary-foreground: var(--ac-white);
+
+  --secondary: #fbfaf7;
+  --secondary-foreground: var(--ac-ink);
+  --muted: #fbfaf7;
+  --muted-foreground: var(--ac-muted);
+  --accent: var(--ac-sage-2);
+  --accent-foreground: var(--ac-ink);
+
+  /* семантика: терракота — тревога, тёмно-зелёный — хорошо, охра — внимание (текст) */
+  --destructive: var(--ac-terra);
+  --success: #2c6e50;
+  --warning: #7a4f12;
+
+  --border: var(--ac-line);
+  --input: var(--ac-line);
+  --ring: var(--ac-sage);
+
+  --chart-1: var(--ac-sage);
+  --chart-2: var(--ac-muted);
+  --chart-3: var(--ac-done);
+  --chart-4: var(--ac-new);
+  --chart-5: var(--ac-terra);
+
+  /* зелёное меню, как в окне сообщений */
+  --sidebar: var(--ac-sage);
+  --sidebar-foreground: #e8f0eb;
+  --sidebar-primary: var(--ac-white);
+  --sidebar-primary-foreground: var(--ac-sage);
+  --sidebar-accent: rgb(255 255 255 / 0.13);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.18);
+  --sidebar-ring: #ffffff;
+}
+
+/* Тёмная тема — производная от палитры окна сообщений (в самом окне её нет), макет 19.10. */
+.dark {
+  --background: #111513;
+  --foreground: #edf1ee;
+  --card: #1a201d;
+  --card-foreground: #edf1ee;
+  --popover: #1a201d;
+  --popover-foreground: #edf1ee;
+
+  --primary: #7fb39f;
+  --primary-foreground: #0f1a16;
+
+  --secondary: #232a26;
+  --secondary-foreground: #edf1ee;
+  --muted: #232a26;
+  --muted-foreground: #9aa8a1;
+  --accent: #24352e;
+  --accent-foreground: #edf1ee;
+
+  --destructive: #e3907a;
+  --success: #84c4a3;
+  --warning: #e6bb74;
+
+  --border: #2e3833;
+  --input: #2e3833;
+  --ring: #7fb39f;
+
+  --chart-1: #7fb39f;
+  --chart-2: #9aa8a1;
+  --chart-3: #4fae82;
+  --chart-4: #d89a3e;
+  --chart-5: #e3907a;
+
+  --sidebar: #173a30;
+  --sidebar-foreground: #dce8e1;
+  --sidebar-primary: #edf1ee;
+  --sidebar-primary-foreground: #173a30;
+  --sidebar-accent: rgb(255 255 255 / 0.09);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.12);
+  --sidebar-ring: #ffffff;
+}
+
+@theme inline {
+  --font-onest: 'Onest', system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}

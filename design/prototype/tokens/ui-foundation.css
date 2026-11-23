@@ -1,0 +1,68 @@
+/* The common presentation layer. Loaded last by both products. */
+:root{--type-caption:12px;--type-body:14px;--type-section:16px;--type-card:13px;--type-metric:32px;--ui-selected:var(--good);--ui-hover:color-mix(in srgb,var(--green) 5%,var(--surface,var(--white)));--ui-pressed:color-mix(in srgb,var(--green) 20%,var(--surface,var(--white)));--ui-track:var(--soft);--chart-new:var(--warm-text,#7a561d);--chart-work:var(--good-text,#225e42);--chart-waiting:var(--alert-text,#8f432d);--chart-done:var(--soft-text,#465750);--chart-track:var(--soft)}
+body:has(.shared-page-header){font-family:var(--ui-font,Onest,system-ui,sans-serif);font-size:var(--type-body)}
+.shared-page-header h1{font-family:var(--ui-heading-font,Onest,system-ui,sans-serif);font-size:var(--shell-title-size,20px)}
+body:has(.shared-page-header) button{font-family:var(--ui-button-font,Onest,system-ui,sans-serif)}
+.main .badge{font-size:var(--pill-font,12px);min-height:var(--pill-height,28px);display:inline-flex;align-items:center;justify-content:center}
+::selection{background:var(--good);color:var(--ink)}
+input,textarea{caret-color:var(--green)}
+.panel-head h2,.owner-panel-heading h2,.employee-section-heading h2{font-size:var(--type-section);font-weight:500;line-height:1.35}
+.panel-head p,.owner-panel-heading p,.card-meta,.project-card-meta,.row small,.compact-info,.progress-foot,.footer{font-size:var(--type-caption);line-height:1.4}
+.card-title,.project-card-heading>strong,.waitlist-person h3{font-size:var(--type-card);line-height:1.45}
+.dashboard-kpi,.kpi,.stat{min-height:108px;border-top:3px solid var(--green);text-align:left;font-variant-numeric:tabular-nums}
+.owner-dashboard .dashboard-kpi{min-height:108px}
+.stat{display:flex;flex-direction:column;align-items:flex-start;padding:10px 14px;border-radius:var(--radius,12px);background:var(--surface,var(--white));gap:5px}
+.stat>span{font-size:12px;color:var(--muted)}.stat>strong{font-size:var(--type-metric);font-weight:500;line-height:1.2;letter-spacing:-.5px}.stat>small{font-size:var(--type-caption);color:var(--muted)}.stat.alert{border-top-color:var(--terra)}
+.table-wrap,.standard-table-wrap{min-width:0;max-width:100%;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.table-wrap table,.standard-table-wrap table{font-variant-numeric:tabular-nums}
+.table-wrap th,.standard-table-wrap th{white-space:nowrap;word-break:normal;overflow-wrap:normal}
+.table-wrap td .button{white-space:nowrap;word-break:normal;min-height:32px}
+.ui-table-sort{border:0;background:transparent;color:inherit;padding:4px 0;min-height:32px;font:inherit;text-align:left;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.ui-table-sort:hover{color:var(--green)}.ui-table-sort:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.ui-table-columns{font-size:var(--type-caption);margin:8px 0}.ui-table-columns summary{padding:6px 0;color:var(--green);cursor:pointer}.ui-table-columns>div{display:flex;gap:8px 16px;flex-wrap:wrap;padding:8px 0}.ui-table-columns label{display:flex;align-items:center;gap:6px}
+.empty,.ui-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:128px;padding:24px 16px;text-align:center;color:var(--muted);font-size:var(--type-body);line-height:1.5}
+.empty .icon{width:24px;height:24px;color:var(--green)}
+.ui-demo-indicator{font-size:var(--type-caption);color:var(--muted);line-height:1.4}
+button:disabled{cursor:not-allowed}.ui-metric-button{cursor:pointer;width:100%;font:inherit;color:inherit;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.ui-metric-button:hover{background:var(--good)}
+.ui-metric-button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.shared-header-popover{width:320px;max-height:calc(100dvh - 90px);overflow:auto;overscroll-behavior:contain}
+.shared-header-popover form{margin:10px 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:10px;background:transparent;grid-template-columns:minmax(0,1fr)}
+.shared-header-popover form .field{min-width:0;width:100%}.shared-header-popover form :is(input,select){max-width:100%;width:100%;min-height:36px}.shared-header-popover form .button{min-height:36px}
+.shared-header-popover>.ui-settings-title{font-size:16px;padding:8px;font-weight:500}
+.shared-system-toggle{display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;margin:0 0 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);flex:none}
+.shared-system-toggle .button{min-height:28px;border:0;padding:3px 6px;border-radius:4px;font-size:11px;justify-content:center;color:var(--green);background:transparent}
+.shared-system-toggle .button[aria-pressed=true]{background:var(--green);color:var(--surface)}
+.shared-system-toggle .button:focus-visible{outline:2px solid var(--green);outline-offset:1px}
+@media(min-width:951px){
+ .layout{grid-template-columns:212px minmax(0,1fr)}body.menu-collapsed:not(.schedule-page) .layout{grid-template-columns:68px minmax(0,1fr)}
+ .schedule-app:not(.rail-collapsed){--rail:212px}.schedule-app.rail-collapsed{--rail:68px}
+ .schedule-rail nav,.layout>aside nav{display:grid;gap:4px;align-content:start}
+ .schedule-rail .rail-item,.layout>aside .nav{position:relative;min-height:40px;border-radius:5px;font-size:13px;line-height:1.35;flex-direction:row;padding:2px 11px;gap:10px}
+ .schedule-rail .rail-item.active,.layout>aside .nav.active{background:var(--ui-selected);color:var(--green);font-weight:600}
+ .schedule-rail .rail-item.active:before,.layout>aside .nav.active:before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--green)}
+ .schedule-rail .rail-item:hover,.layout>aside .nav:hover{background:var(--ui-hover)}
+ .schedule-rail .rail-item.active:hover,.layout>aside .nav.active:hover{background:#d9ece4}
+ .schedule-rail .rail-item:active,.layout>aside .nav:active,.schedule-rail .rail-item.active:active,.layout>aside .nav.active:active{background:var(--ui-pressed)}
+ .schedule-rail .rail-item:focus-visible,.layout>aside .nav:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+ .rail-collapsed .schedule-rail .rail-item,body.menu-collapsed .layout>aside .nav{justify-content:center;padding-inline:0}
+ .rail-collapsed .shared-system-toggle,body.menu-collapsed .shared-system-toggle{grid-template-columns:1fr}
+ .schedule-rail>.shared-system-toggle{margin-inline:0}
+}
+@media(max-width:760px){.dashboard-kpi-value>strong,.stat>strong{font-size:28px}.ui-table-sort{min-height:44px}}
+@media print{.shared-system-toggle,.ui-table-columns,.ui-demo-indicator{display:none!important}}
+dialog:has(.table-wrap){width:min(1180px,calc(100vw - 32px));max-height:calc(100dvh - 32px)}
+dialog .dialog-head{gap:12px}.dialog-head .dialog-back{margin-left:auto;white-space:nowrap}.dialog-head .dialog-back+.icon-only{margin-left:0}
+.schedule-rail .rail-item:disabled,.layout>aside .nav:disabled{opacity:.55;background:transparent;color:var(--muted);cursor:not-allowed}
+.page-settings-panel,.shared-header-popover.employee-filter-popover{width:320px;max-width:calc(100vw - 24px)}
+.shared-header-popover.employee-filter-popover .employee-filters{grid-template-columns:minmax(0,1fr);padding:10px 8px}
+.shared-header-popover .button.primary{background:var(--green);border-color:var(--green);color:var(--surface)}
+.shared-header-popover .actions .button,.shared-header-popover .employee-filter-actions .button{width:auto;flex:1}
+.shared-header-popover .employee-filter-title{display:none}
+.topbar .shared-system-toggle{margin:0;width:120px}
+.topbar:has(.shared-system-toggle) .product,.topbar:has(.shared-system-toggle) .spacer{display:none}
+@media(max-width:950px){.topbar .shared-system-toggle .button{min-height:44px}.shared-system-toggle{max-width:100%}}
+.reference-shell .sidebar .nav-btn:is(.active,[aria-current=page]){background:var(--ui-selected)}
+.reference-shell .sidebar .nav-btn:hover:not(:disabled){background:var(--ui-hover)}
+.reference-shell .sidebar .nav-btn:is(.active,[aria-current=page]):hover:not(:disabled),.schedule-rail .rail-item.active:hover,.layout>aside .nav.active:hover{background:color-mix(in srgb,var(--green) 14%,var(--surface,var(--white)))}
+.reference-shell .sidebar .nav-btn:active:not(:disabled),.reference-shell .sidebar .nav-btn:is(.active,[aria-current=page]):active:not(:disabled){background:var(--ui-pressed)}
+.timeline-surface,.timeline-axis,.timeline-doctor h2,.timeline-doctor small,.timeline-appointment,.timeline-block{font-family:var(--ui-font,Onest,system-ui,sans-serif)}

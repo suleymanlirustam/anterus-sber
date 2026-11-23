@@ -1,0 +1,245 @@
+/* Окно врача (13.11.2026): только своё — плашки, столбик дней, приём карточкой на телефоне. Остальное — общие
+   стили окон (crm-shell.css, crm-dashboard.css). */
+@layer components {
+  .crm .doctor-days {
+    display: grid;
+    gap: 16px;
+  }
+
+  .crm .doctor-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--crm-grid-gap, 14px);
+    margin-bottom: var(--crm-grid-gap, 14px);
+  }
+  .crm .doctor-kpi {
+    padding: 16px;
+  }
+
+  /* значок плашки — перед подписью, как у неё; без стрелки «открыть» он последний и уезжал вправо */
+  .crm .doctor-kpi .dashboard-kpi-label > .icon:last-child {
+    margin-left: 0;
+  }
+
+  /* телефон: строка приёма — карточкой (время, ФИО, затем подписанные поля) */
+  @media (max-width: 760px) {
+    .crm .table-wrap table.doctor-table,
+    .crm .table-wrap table.doctor-table tbody {
+      display: block;
+      width: 100%;
+      min-width: 0;
+    }
+    .crm .table-wrap table.doctor-table thead {
+      display: none;
+    }
+    .crm .table-wrap table.doctor-table tr {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: 12px;
+      border-bottom: 1px solid var(--crm-line);
+      width: 100%;
+      padding: 8px 12px;
+    }
+    .crm .table-wrap table.doctor-table td {
+      min-width: 0;
+      border: 0;
+      padding: 2px 0;
+    }
+    .crm .table-wrap table.doctor-table td[data-label] {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      text-align: right;
+    }
+    .crm .table-wrap table.doctor-table td[data-label]::before {
+      content: attr(data-label);
+      color: var(--crm-muted);
+      font-size: var(--crm-type-caption);
+      text-align: left;
+    }
+  }
+}
+
+/* Календарь расписания (14.11.2026): неделя столбцами по дням, месяц сеткой. Цвета — наши
+   токены: пришёл — --ac-done-soft, записан — --ac-progress-soft, не оплачен — --ac-new. */
+@layer components {
+  .crm .doctor-modes {
+    display: inline-flex;
+    gap: 4px;
+  }
+
+  .crm .doctor-week {
+    display: grid;
+    grid-template-columns: repeat(var(--doctor-days, 1), minmax(190px, 1fr));
+    gap: var(--crm-grid-gap, 14px);
+    overflow-x: auto;
+    align-items: start;
+    padding-bottom: 4px;
+  }
+
+  .crm .doctor-day {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    min-width: 0;
+    border: 1px solid var(--ac-line);
+    border-radius: 12px;
+    background: var(--ac-white);
+    padding: 10px;
+  }
+
+  .crm .doctor-day-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+
+  .crm .doctor-day-head span {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ac-muted);
+  }
+
+  .crm .doctor-visit {
+    display: grid;
+    gap: 2px;
+    border-radius: 8px;
+    border-left: 3px solid var(--ac-progress);
+    background: var(--ac-progress-soft);
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .crm .doctor-visit.is-came {
+    border-left-color: var(--ac-done);
+    background: var(--ac-done-soft);
+  }
+
+  .crm .doctor-visit.is-unpaid {
+    box-shadow: inset 0 -4px 0 var(--ac-new);
+    padding-bottom: 12px;
+  }
+
+  .crm .doctor-visit small {
+    color: var(--ac-muted);
+    font-size: 12px;
+  }
+
+  .crm .doctor-visit-time {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin: 0;
+    font-size: 12px;
+    color: var(--ac-muted);
+  }
+
+  .crm .doctor-visit-online {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--ac-sage);
+  }
+
+  .crm .doctor-visit-online .icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .crm .doctor-month {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: var(--crm-grid-gap, 14px);
+  }
+
+  .crm .doctor-month-weekday {
+    font-size: 12px;
+    color: var(--ac-muted);
+    text-align: center;
+  }
+
+  .crm .doctor-month-day {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    min-height: 96px;
+    min-width: 0;
+    border: 1px solid var(--ac-line);
+    border-radius: 10px;
+    background: var(--ac-white);
+    padding: 6px;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .crm .doctor-month-day.is-free {
+    background: var(--ac-paper);
+    cursor: default;
+  }
+
+  .crm .doctor-month-day.is-today .doctor-month-number {
+    color: var(--ac-white);
+    background: var(--ac-sage);
+    border-radius: 999px;
+    padding: 0 6px;
+    align-self: flex-start;
+  }
+
+  .crm .doctor-month-day[aria-pressed='true'] {
+    border-color: var(--ac-sage);
+    box-shadow: 0 0 0 1px var(--ac-sage);
+  }
+
+  .crm .doctor-month-number {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .crm .doctor-month-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 4px;
+    background: var(--ac-progress-soft);
+    padding: 1px 4px;
+    font-size: 11px;
+  }
+
+  .crm .doctor-month-line.is-came {
+    background: var(--ac-done-soft);
+  }
+
+  .crm .doctor-month-more {
+    font-size: 11px;
+    color: var(--ac-muted);
+  }
+
+  @media (max-width: 760px) {
+    .crm .doctor-week {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .crm .doctor-month-day {
+      min-height: 52px;
+    }
+    .crm .doctor-month-line,
+    .crm .doctor-month-more {
+      display: none; /* на телефоне в клетке — только число и точка «есть приёмы» */
+    }
+    .crm .doctor-month-day.is-busy::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--ac-sage);
+    }
+  }
+}

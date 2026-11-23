@@ -1,0 +1,206 @@
+@import '../styles/index.css';
+@import '../styles/crm-tokens.css';
+/* её оформление (29.10.2026) — после Tailwind и строго в этом порядке: сначала её правила,
+   потом наши дополнения; из компонентов не подключать — порядок слоёв собьётся */
+@import '../shell/crm-shell.css';
+@import '../shell/crm-own.css';
+@import './crm-dashboard.css';
+@import './crm-screens.css';
+@import './crm-dialog.css';
+@import './crm-dashboard-own.css';
+@import '../doctor/doctor.css';
+@import '../shell/crm-motion.css';
+
+/* Макет дизайнера (ТЗ «ANTERUS CRM», 10.10.2026): размеры §3.3, кнопки §5.1.
+   Палитра --ac-* и шрифт Onest — общие, в styles/theme.css (с 20.10.2026). */
+:root {
+  /* линии и серый текст — как у компаньона (styles/crm-tokens.css, решение 29.10.2026) */
+  --ac-line: var(--crm-line);
+  --ac-muted: var(--crm-muted);
+  --ring: var(
+    --ac-terra
+  ); /* фокус окна сообщений — терракотовый, у панели зелёный */
+}
+
+body {
+  font-family: 'Onest', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums; /* время и счётчики не прыгают по ширине */
+}
+
+:focus-visible {
+  outline: 3px solid var(--ac-terra);
+  outline-offset: 2px;
+}
+
+@layer components {
+  .rc-btn {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .rc-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .rc-btn-sm {
+    min-height: 32px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .rc-primary {
+    background: var(--ac-sage);
+    color: var(--ac-white);
+  }
+  .rc-primary:hover:not(:disabled) {
+    background: var(--ac-sage-deep);
+  }
+  .rc-terra {
+    background: var(--ac-terra);
+    color: var(--ac-white);
+  }
+  .rc-terra:hover:not(:disabled) {
+    background: #8e4430;
+  }
+  .rc-secondary {
+    border-color: var(--ac-line);
+    background: var(--ac-white);
+    color: var(--ac-ink);
+  }
+  .rc-quiet {
+    background: transparent;
+    color: var(--ac-sage);
+  }
+  .rc-secondary:hover:not(:disabled),
+  .rc-quiet:hover:not(:disabled) {
+    background: var(--ac-sage-2);
+  }
+
+  /* фильтр-«пилюля»: вкладки списка, метки «Запись» / «Вопрос врачу» */
+  .rc-filter {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--ac-line);
+    border-radius: 999px;
+    background: var(--ac-white);
+    padding: 7px 10px;
+    color: var(--ac-ink);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .rc-filter[aria-pressed='true'] {
+    border-color: var(--ac-sage);
+    background: var(--ac-sage);
+    color: #fff;
+  }
+  .rc-filter:disabled {
+    opacity: 0.5;
+  }
+
+  /* тег типа и плашка срока — компактные, нейтральные; цвет всегда с текстом */
+  .rc-tag {
+    display: inline-flex;
+    min-height: 22px;
+    align-items: center;
+    gap: 5px;
+    border-radius: 999px;
+    background: var(--ac-progress-soft);
+    padding: 3px 8px;
+    color: var(--crm-soft-text);
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .rc-tone-red {
+    background: var(--crm-alert);
+    color: var(--crm-alert-text);
+  }
+  .rc-tone-yellow {
+    background: var(--crm-warm);
+    color: var(--crm-warm-text);
+  }
+  .rc-tone-green {
+    background: var(--crm-soft);
+    color: var(--crm-soft-text);
+  }
+  .rc-tone-none {
+    background: var(--crm-good);
+    color: var(--crm-good-text);
+  }
+
+  /* «Решено» в шапке переписки — компактная, размером с тег (§6.6) */
+  .rc-done {
+    min-height: 24px;
+    border-radius: 999px;
+    background: var(--ac-sage);
+    padding: 4px 10px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  .rc-done:hover:not(:disabled) {
+    background: var(--ac-sage-deep);
+  }
+  .rc-done:disabled {
+    opacity: 0.5;
+  }
+
+  .rc-input,
+  .rc-select {
+    min-height: 42px;
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--ac-line);
+    border-radius: 10px;
+    background: var(--ac-white);
+    padding: 0 12px;
+    color: var(--ac-ink);
+  }
+  .rc-input::placeholder {
+    color: var(--ac-muted);
+  }
+  .rc-field {
+    min-height: 44px;
+  }
+  .rc-select:disabled,
+  .rc-input:disabled {
+    opacity: 0.6;
+  }
+  .rc-label {
+    font-size: 12px;
+    color: var(--ac-muted);
+  }
+
+  .rc-panel {
+    border: 1px solid var(--ac-line);
+    border-radius: 12px;
+    background: var(--ac-white);
+  }
+
+  /* «+ / −» в карточке: малозаметный, без рамки, по верхнему краю (§5.2) */
+  .rc-expand {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    flex: none;
+    align-self: start;
+    align-items: center;
+    justify-content: center;
+    margin-top: -1px;
+    border-radius: 8px;
+    color: var(--ac-muted);
+  }
+  .rc-expand:hover {
+    color: var(--ac-ink);
+  }
+}
